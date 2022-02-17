@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <title>Fourth week project</title>
+</head>
+<body>
+    <body>
+        <div class="container-fluid">
+            <div class="row justify-content-evenly mt-3 ">
+                <div class="col-md-5 border rounded">
+                    <div>
+                        <h1>Audio</h1>
+                        <p>Seleziona un brano in elenco per ascoltare la musica</p>
+                        <div class="row justify-content-between pb-3">
+                            <ul id="audioList" class="list-group col-md-5 mx-2">
+                                
+                            </ul>
+
+                            <div class="col-md-6">
+                                <audio id="audio" controls></audio>
+                                
+
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+                
+                <div class="col-md-5 border rounded">
+                    <div>
+                        <h1>Video</h1>
+                        <p>Seleziona un video in elenco per visualizzarlo</p>
+                        <div class="row justify-content-between pb-3">
+                            <ul id="videoList" class="list-group col-md-5 mx-2">
+                                
+                            </ul>
+
+                            <div class="col-md-5">
+                                <video id="video" width="250px" height="150px" controls></video>
+                            </div>
+                        </div>
+        
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+       
+       
+    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+        <script>
+
+
+            $(document).ready(function () {
+                $.ajax({
+                    url: "audio.json",
+                    dataType: "json",
+                    success: function (data) {
+                        
+                        $.each(data,function(i,el){ 
+
+                        var audioTitle = el.title;
+                        var audioFile = el.file; 
+                        console.log (audioTitle);
+                        console.log (audioFile);     
+                        
+
+                        $('#audioList').append('<li class="list-group-item"><a href=' + audioFile + ">" + audioTitle + "</a></li>");
+                                var music = $('#audioList a').attr("href");
+                                var myAudio = $("#audio");
+                                myAudio.attr("src", music);
+
+                            
+                        
+                            $('#audioList a').click(function(e){
+                                
+                                e.preventDefault();
+                                
+                                
+                                document.getElementById("audio").play();
+                            })
+                        
+                    });
+                    
+                    },
+                    error: function (error) {
+                        console.log(error.status);
+                    }
+                });
+                $.ajax({
+                    url: "video.json",
+                    dataType: "json",
+                    success: function (data) {
+                        
+                        $.each(data,function(i,el){ 
+
+                        var videoTitle = el.title; 
+                        var videoFile = el.file;      
+                        
+
+                        $('#videoList').append('<li class="list-group-item"> <a href=' + videoFile + ">"+ videoTitle + "</a></li>");
+                        
+                        var media = $('#videoList a').attr("href");
+                        var myVideo = $("#video");
+                        myVideo.attr("src", media);
+
+                        $('#videoList a').click(function(e){
+                                
+                                e.preventDefault();
+                                console.log(videoFile);
+                                document.getElementById("video").play();
+                            })
+                        
+                    });
+                    },
+                    error: function (error) {
+                        console.log(error.status);
+                    }
+                });
+            })
+            
+        </script>
+        
+    </body>
+    </html>
+    
+</body>
+</html>
+<!-- la cosa più semplice è usare el.file per popolare l'attributo href 
+    di un link e poi (1 stringa restituisce il valore, 2 stringhe imposta 
+    il valore) uso il vaore per popolare il src di audio
+
+    controlla che stai leggendo la variabile in cui metti il 
+    file e la stai associando all'src del tag audio/video
+-->
