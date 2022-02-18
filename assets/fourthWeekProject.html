@@ -77,12 +77,12 @@
                             $('#audioList a').click(function(e){
                                 
                                 e.preventDefault();
-                                var music = $('#audioList a').attr("href");
+                                var music = $(this).attr("href");
                                 var myAudio = $("#audio");
                                 myAudio.attr("src", music);                                
                                 document.getElementById("audio").play();
                             })
-                        
+                        //$(this).attr('href');  
                     });
                     
                     },
@@ -101,12 +101,12 @@
                         var videoFile = el.file;      
                         
 
-                        $('#videoList').append('<li class="list-group-item"> <a href=' + videoFile + ">"+ videoTitle + "</a></li>");
+                        $('#videoList').append('<li class="list-group-item"><a href=' + videoFile + ">"+ videoTitle + "</a></li>");
                         
                         $('#videoList a').click(function(e){
                                 
                             e.preventDefault();
-                            var media = $('#videoList a').attr("href");
+                            var media = $(this).attr("href");
                             var myVideo = $("#video");
                             myVideo.attr("src", media);                                
                             document.getElementById("video").play();
