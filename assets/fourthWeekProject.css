@@ -1,0 +1,10 @@
+#audioList a,
+#videoList a {
+  text-decoration: none;
+  color: black;
+}
+#audioList a:hover,
+#videoList a:hover {
+  text-decoration: dotted;
+  color: rgb(70, 9, 70);
+}
